@@ -79,7 +79,6 @@ class SHA512:
         for i in range(0, len(msg), 128):
             block = msg[i: i + 128]
             w = self.compute_w(block)
-            # self.log(w)
             s = self.__compression(state, w, round_keys)
             state = [(x + y) & 0xFFFFFFFFFFFFFFFF for x, y in zip(state, s)]
         return state
