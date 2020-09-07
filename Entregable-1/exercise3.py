@@ -17,13 +17,11 @@ def search_names(DIR):
           times[name] += 1
 
 def plot_frequency():
-  colors = 0
   bar_list = plt.bar(times.keys(), times.values(), color="cornflowerblue", width=1, align='center')
+
+  colors = 0
   for bar in bar_list:
-    if colors % 2:
-      bar_list[colors].set_color('cornflowerblue')
-    else:
-      bar_list[colors].set_color('mediumslateblue')
+    bar_list[colors].set_color('cornflowerblue') if colors % 2 else bar_list[colors].set_color('mediumslateblue')
     colors += 1
 
   plt.ylabel('Cantidad de apariciones')
