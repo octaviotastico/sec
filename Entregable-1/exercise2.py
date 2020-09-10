@@ -1,12 +1,16 @@
-import os, sys, threading
-
-MODE = 'ALL'
-DIR = './dicts/'
-THREADS = 4
-PWDS = ''
+import os, sys
 
 args = sys.argv
+
+MODE = 'SHA1'
+DIR = './dicts/'
+PWD = '941d4637d8223d958d7f2324572c7e319dcea01f'
+
 def get_args():
+  global MODE
+  global DIR
+  global PWD
+
   if '-d' in args:
     DIR = args[ args.index('-d') + 1 ]
   if '--dir' in args:
@@ -15,47 +19,33 @@ def get_args():
     MODE = args[ args.index('--m') + 1 ]
   if '--mode' in args:
     MODE = args[ args.index('--mode') + 1 ]
-  if '-t' in args:
-    THREADS = args[ args.index('-t') + 1 ]
-  if '--threads' in args:
-    THREADS = args[ args.index('--threads') + 1 ]
   if '-p' in args:
-    PWDS = args[ args.index('-p') + 1 ]
-  if '--pwds' in args:
-    PWDS = args[ args.index('--pwds') + 1 ]
+    PWD = args[ args.index('-p') + 1 ]
+  if '--pwd' in args:
+    PWD = args[ args.index('--pwd') + 1 ]
 
-def get_args_values():
+def get_algorithms():
   if MODE == 'ALL':
-    modes = os.popen('hashcat -h | grep MD4 -A212 | cut -d"|" -f1 | sort | uniq').read()
-    modes = modes.replace(' ', '')[:-1].split('\n')
+    algorithms = os.popen('hashcat -h | grep MD4 -A212 | cut -d"|" -f1 | sort | uniq').read()
+    algorithms = algorithms.replace(' ', '')[:-1].split('\n')
   else:
-    modes = os.popen(f'hashcat -h | grep {MODE} -m1 | cut -d'|' -f1').read()
-    modes = modes.replace(' ', '').replace('\n', '')
+    algorithms = os.popen(f'hashcat -h | grep {MODE} -m1 | cut -d"|" -f1').read()
+    algorithms = algorithms.replace(' ', '').split('\n')[:-1]
+  return algorithms
 
-def crack_pwd(DICT):
-  if type(MODE) == list:
-    for M in MODE:
-      os.system(f'hashcat --generate-rules=5 --quiet -O -m {M} {PWDS} {DICT} 2>/dev/null')
-  else:
-    os.system(f'hashcat --generate-rules=5 --quiet -O -m {MODE} {PWDS} {DICT} 2>/dev/null')
+def crack_pwd(dictionary, algorithms):
+  for alg in algorithms:
+    output = os.popen(f'hashcat --generate-rules=5 --quiet -O -m {alg} {PWD} {dictionary} 2>/dev/null').read()
+    print(dictionary)
 
-def crack_with_dict(start):
-  i = start
+def crack_with_dict(algorithms):
   dicts = os.listdir(DIR)
-  while True:
-    DICT = dicts[i]
-    crack_pwd(DICT)
-    i += THREADS
-    if i >= len(dicts):
-      return
+  for i in range(len(dicts)):
+    crack_pwd(DIR + dicts[i], algorithms)
 
 def main():
-  threads = []
-  get_args_values()
-  for THREAD in range(THREADS):
-    t = threading.Thread(target=crack_with_dict, args=(THREAD))
-    threads.append(t)
-    t.start()
+  get_args()
+  crack_with_dict(get_algorithms())
 
 if __name__ == "__main__":
   main()
