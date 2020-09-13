@@ -1,0 +1,18 @@
+Last 5 lines of the output of john's show command
+
+```
+?:f212/04n1
+?:shubycidad1
+?:fab0k1ss.
+
+9118821 password hashes cracked, 7414134 left
+```
+
+We used all the dictionaries from http://ns2.elhacker.net/wordlists/ and also a brute force attack to crack the passwords
+
+
+We will send you the complete file separetely.
+
+
+
+
