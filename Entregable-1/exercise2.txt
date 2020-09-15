@@ -1,0 +1,5 @@
+In this exercise we used hashcat and a lot of dictionaries to try to crack the password.
+We created a python script to use hashcat. Hashcat hashes a password, and then compares
+the hash with the given one (the password we're trying to guess).
+We didn't found anythin, but we algo tried with John (it's the same as hashcat, but it
+uses the CPU instead of the GPU).

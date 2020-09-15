@@ -10,9 +10,4 @@ Last 5 lines of the output of john's show command
 
 We used all the dictionaries from http://ns2.elhacker.net/wordlists/ and also a brute force attack to crack the passwords
 
-
 We will send you the complete file separetely.
-
-
-
-
