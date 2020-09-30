@@ -97,5 +97,5 @@ Y con esto, vamos a estar escuchando todo lo que se envíe a la dirección `2.tc
 
 Finalmente, agregando la ip y el puerto que nos devuelve ngrok al script crack_sh.js, el cual nos genera la cookie, podemos enviarla, y el servidor se va a conectar a nuestra terminal (la cual corrimos el comando nc), y... * se pone la capucha * WE'RE IN!!!
 
-Ahora tenemos una terminal conectada al servidor, y por lo tanto tenemos permisos para crear, leer y eliminar archivos, entonces, podemos cambiar la clave ssh que esta en el servidor por una nueva la cual conozcamos su clave privada, y finalmente conectarnos en serio.
+Ahora tenemos una terminal conectada al servidor, y por lo tanto tenemos permisos para crear, leer y eliminar archivos, ya que somos root.
 
