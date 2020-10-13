@@ -12,7 +12,7 @@ def do_otp(message, key):
     x = int(message, 16) ^ int(k, 16)
     return '%x' % x
 
-msg = "157f0614480200670273000d1661041a700e1c130200130112700e1f1d3a"
+msg = "14687a0e0f14141d0819181116110e111f0b7a1114780e10130b7a6b021917"
 
 results = []
 
