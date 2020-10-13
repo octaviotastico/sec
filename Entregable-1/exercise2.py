@@ -2,9 +2,9 @@ import os, sys
 
 args = sys.argv
 
-MODE = 'SHA1'
-DIR = './dicts/'
-PWD = '941d4637d8223d958d7f2324572c7e319dcea01f'
+MODE = 'ALL'
+DIR = './Tools/Dicts/'
+PWD = '4cb879f6cd090921607bde9282710e9f47dcbc4b6eb9105f9'
 
 def get_args():
   global MODE
@@ -36,7 +36,7 @@ def get_algorithms():
 def crack_pwd(dictionary, algorithms):
   for alg in algorithms:
     output = os.popen(f'hashcat --generate-rules=5 --quiet -O -m {alg} {PWD} {dictionary} 2>/dev/null').read()
-    print(dictionary)
+    if('unmatched' not in output and 'exception' not in output): print(alg, output)
 
 def crack_with_dict(algorithms):
   dicts = os.listdir(DIR)

@@ -1,0 +1,39 @@
+- Nikto v2.1.6
+---------------------------------------------------------------------------
++ Target IP:          172.18.1.68
++ Target Hostname:    172.18.1.68
++ Target Port:        80
++ Start Time:         2020-10-11 12:05:10 (GMT-3)
+---------------------------------------------------------------------------
++ Server: Apache/2.4.7 (Ubuntu)
++ Cookie PHPSESSID created without the httponly flag
++ Retrieved x-powered-by header: PHP/5.5.9-1ubuntu4.14
++ The anti-clickjacking X-Frame-Options header is not present.
++ The X-XSS-Protection header is not defined. This header can hint to the user agent to protect against some forms of XSS
++ The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type
++ No CGI Directories found (use '-C all' to force check all possible dirs)
++ Entry '/admin/' in robots.txt returned a non-forbidden or redirect HTTP code (302)
++ Entry '/admin/admin_index.php' in robots.txt returned a non-forbidden or redirect HTTP code (302)
++ Entry '/cache/' in robots.txt returned a non-forbidden or redirect HTTP code (200)
++ Entry '/internal/' in robots.txt returned a non-forbidden or redirect HTTP code (200)
++ Entry '/languages/' in robots.txt returned a non-forbidden or redirect HTTP code (200)
++ Entry '/libs/' in robots.txt returned a non-forbidden or redirect HTTP code (200)
++ Entry '/LICENSE.txt' in robots.txt returned a non-forbidden or redirect HTTP code (200)
++ Entry '/logs/' in robots.txt returned a non-forbidden or redirect HTTP code (200)
++ Entry '/modules/' in robots.txt returned a non-forbidden or redirect HTTP code (200)
++ Entry '/plugins/' in robots.txt returned a non-forbidden or redirect HTTP code (200)
++ Entry '/search.php' in robots.txt returned a non-forbidden or redirect HTTP code (200)
++ Entry '/templates/' in robots.txt returned a non-forbidden or redirect HTTP code (200)
++ "robots.txt" contains 37 entries which should be manually viewed.
++ Apache/2.4.7 appears to be outdated (current is at least Apache/2.4.37). Apache 2.2.34 is the EOL for the 2.x branch.
++ Allowed HTTP Methods: GET, HEAD, POST, OPTIONS 
++ Web Server returns a valid response with junk HTTP methods, this may cause false positives.
++ OSVDB-3092: /pligg/internal/: This might be interesting...
++ OSVDB-3092: /pligg/logs/: This might be interesting...
++ OSVDB-3092: /pligg/LICENSE.txt: License file found may identify site software.
++ /pligg/login.php: Admin login page/section found.
++ /pligg/.gitignore: .gitignore file found. It is possible to grasp the directory structure.
++ 7953 requests: 0 error(s) and 26 item(s) reported on remote host
++ End Time:           2020-10-11 12:05:56 (GMT-3) (46 seconds)
+---------------------------------------------------------------------------
++ 1 host(s) tested

@@ -1,0 +1,11 @@
+# Nmap 7.80 scan initiated Sun Oct 11 20:30:03 2020 as: nmap -p- -oN nmap/all_ports 172.18.1.68
+Nmap scan report for 172.18.1.68
+Host is up (0.000069s latency).
+Not shown: 65531 closed ports
+PORT     STATE SERVICE
+21/tcp   open  ftp
+22/tcp   open  ssh
+80/tcp   open  http
+8000/tcp open  http-alt
+
+# Nmap done at Sun Oct 11 20:30:03 2020 -- 1 IP address (1 host up) scanned in 0.71 seconds
