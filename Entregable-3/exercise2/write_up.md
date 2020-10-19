@@ -98,7 +98,7 @@ Esto fue verificado ya que me cree un usuario mio con la password `asdasd`, cons
 Estaba dificil de todas maneras crackear el hash, pero con el *hint* pudimos lograrlo corriendo:
 
 ```
-PUM
+hashcat -m 120 hashes/barack 100k-most-used-passwords-NCSC.txt -r .hcmask
 ```
 
 Password is `obamaobamaobama`!!
@@ -109,21 +109,11 @@ En ese momento probe usar la password en SSH, que habiamos visto antes que estab
 
 Una vez adentro, vemos que `obama` puede correr cualquier cosa si usa `sudo`
 
-```
-sudo -l
-Matching Defaults entries for obama on server:
-    env_reset, mail_badpass,
-    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
-
-User obama may run the following commands on server:
-    (ALL : ALL) ALL
-```
-
 Habra reutilizado `obama` una vez mas su password para `sudo`? Indeed... \*facepalm\*
-
-`sudo -i`
-
-Este es el contenido de `root.txt`
+```
+sudo -i
+```
+Este es el contenido de `flag.txt`
 
 ```
  _________________________________________
