@@ -24,7 +24,7 @@ undefined4 main(void)
     uint8_t auStack40 [20];
     int32_t iStack20;
     int32_t var_8h;
-    
+
     uVar5 = 0;
     iStack20 = *(int32_t *)(in_GS_OFFSET + 0x14);
     printf("Enter password: ");
@@ -330,7 +330,7 @@ Success!! Too easy.
 ## R3
 
 ```
-└──╼ $file r3 
+└──╼ $file r3
 r3: ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux.so.2, for GNU/Linux 2.6.15, BuildID[sha1]=bec53100fab355c947ad9d9a8aa8cb27cbdb4ee9, stripped
 ```
 
@@ -338,7 +338,7 @@ De nuevo, no nos sera tan facil analizar este archivo
 
 Si lo corremos, nos pide un `Serial`
 ```
-└──╼ $./r3 
+└──╼ $./r3
 Serial:
 ```
 
@@ -468,21 +468,21 @@ movzx eax, byte [eax]                   // eax = *(var_30h + var_34h) -> input[i
 movsx edx, al
 mov eax, dword [0x804a038]              // una de las direcciones importantes!
 lea esi, [edx + eax]                    // esi = eax + (input[i]&0xff)
-mov eax, dword [var_34h]                
+mov eax, dword [var_34h]
 sub eax, 1
 mov ebx, eax                            // ebx = *(var_34h) - 1
-lea eax, [var_30h]                     
-mov dword [var_3ch], 0xffffffff ; -1    
-mov edx, eax 
+lea eax, [var_30h]
+mov dword [var_3ch], 0xffffffff ; -1
+mov edx, eax
 mov eax, 0                              // eax = 0
 mov ecx, dword [var_3ch]                // ecx = -1
 mov edi, edx                            // edi = var_30h
 repne scasb al, byte es:[edi]           // leer hasta \0 en var_30h (nuestro input)
-mov eax, ecx                            
+mov eax, ecx
 not eax                                 // eax = caracteres posta + 1
 lea ecx, [eax - 1]                      // ecx = caracteres posta
 mov eax, ebx                            // eax = *(var_34h) - 1
-mov edx, 0                              
+mov edx, 0
 div ecx                                 // eax = applies EDX:EAX/ecx (thank god EDX = 0)
 mov eax, edx                            // eax = eax % ecx
 movzx eax, byte [ebp + eax - 0x30]      // eax = *(ebp + eax - 0x30)
