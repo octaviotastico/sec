@@ -274,7 +274,7 @@ cmp al, byte [esp + 0x27]                  || 8 lower bits of eax == *(esp + 0x2
 je 0x80485b3
 ```
 
-Uff, en resumen, agarramos el caracter i-esimo del `magic_string`, hacemos cosas magicas con lo que haya en `*(posicion + 1)` + `0x66666667` + `posicion` + ese caracter i-esimo. Una vez hicimos toda esa magia, guardamos los ultimos 8 bits de eax, cargamos lo que hay en la direccion de memoria `(nuestro_string[0] + posicion)` y lo comparamos con lo que habiamos guardado antes.
+Uff, en resumen, agarramos el caracter i-esimo del `magic_string`, hacemos cosas magicas con `posicion + 1` + `0x66666667` + `posicion` + ese caracter i-esimo. Una vez hicimos toda esa magia, guardamos los ultimos 8 bits de eax, cargamos lo que hay en la direccion de memoria `(nuestro_string[0] + posicion)` y lo comparamos con lo que habiamos guardado antes.
 
 Si esta comparacion anda, saltamos a `0x80485b3` y ejecutamos `add dword [esp + 0x20], 1` y posteriormente todo el codigo que hacia `16 <= posicion` se ejecuta. Asi que si, efectivamente `[esp + 0x20]` es nuestra posicion, aunque ya lo suponiamos.
 
