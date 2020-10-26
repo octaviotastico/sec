@@ -1,8 +1,12 @@
-#include "stdlib.h"
-#include "stdio.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <stdbool.h>
+#include <assert.h>
+#include <openssl/md5.h>
+#include <string.h>
+#define fore(i, a, b) for (int i = a; i < b; i++)
 
-int main(void) {
-  char s[38] = {
+unsigned char str[38] = {
     0xd7, 0x40, 0xa5, 0xdc, 0x60,
     0x7f, 0x78, 0xfb, 0xff, 0xe5,
     0x20, 0xef, 0xc7, 0xca, 0xeb,
@@ -10,16 +14,24 @@ int main(void) {
     0xb2, 0x6c, 0x30, 0xc2, 0xfd,
     0x37, 0xed, 0x74, 0x3b, 0x77,
     0x03, 0x8d, 0x32, 0x6a, 0x9c,
-    0x7e, 0x7e, 0x80
-  }; int x = 0;
-  while(1) {
-    char res[100];
-    srand(0x0804866c + x); x++;
-    for(short i=0; i<38; i++) {
-      res[i] = (rand() & 0xFF) ^ (char)s[i];
-    }
-    printf("%s\n", res);
-  }
+    0x7e, 0x7e, 0x80};
 
+unsigned char digest[16] = {
+  0x08, 0x0d, 0x5c, 0xaa, 0xed, 0x95, 0xaf, 0x9a, 0xb0, 0x72, 0xc4, 0x1d, 0xe3, 0xa7, 0x3c, 0x24,
+};
+
+char res[38];
+unsigned char md[16];
+
+int main(void)
+{
+
+  fore(i, 0, 1 << 20)
+  {
+    srand((i << 12) | 0x66c);
+    fore(j, 0, 38) res[j] = str[j] ^ (rand() & 0xff);
+    MD5(res, 38, md);
+    if(strcmp(md, digest) == 0) puts(res);
+  }
   return 0;
 }
