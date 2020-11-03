@@ -28,7 +28,7 @@ int main(void)
 
   fore(i, 0, 1 << 20)
   {
-    srand((i << 12) | 0x66c);
+    srand((i << 12) | 0x66c); // 1<<12 = 0x1000 = 4096
     fore(j, 0, 38) res[j] = str[j] ^ (rand() & 0xff);
     MD5(res, 38, md);
     if(strcmp(md, digest) == 0) puts(res);
