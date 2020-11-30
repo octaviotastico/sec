@@ -76,3 +76,6 @@ Symbol Name                                Member                         Addres
 tcp4_seq_afinfo                            show                           0xf817d650  # Esta funcion ha sido manipulada
 ```
 
+Otras formas de detectar rootkits:
++ `linux_check_fop`: some rootkits receive instructions from `/proc`
++ utmp tampering: some rootkits hide logged users, we need to `linux_find_file -F /var/run/utmp`, check the inode with `linux_check_fop` and recover the real file (if it was hooked) with `linux_find_file`
