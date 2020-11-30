@@ -1,5 +1,7 @@
 # Ejercicio 4
 
+La parte de la herramienta `Photorec` la deje en la carpeta `photorec`. Alta herramienta la verdad
+
 Extraemos el hash usando la herramienta `office2john.py`
 
 Nos queda
